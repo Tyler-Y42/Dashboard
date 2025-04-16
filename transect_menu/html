@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><title>Transect Menu</title></head>
+<body style="padding:10px;font-family:Arial,sans-serif;">
+  <div style="margin-bottom:12px;">
+    <button id="btnLogan" style="margin-right:6px;padding:6px 12px;">Logan Transect</button>
+    <button id="btnHyrum" style="padding:6px 12px;">Hyrum Transect</button>
+  </div>
+  <div style="margin-bottom:12px;">
+    <button id="btnPlot" style="margin-right:6px;padding:6px 12px;">Plot</button>
+    <button id="btnGraph" style="padding:6px 12px;">Graph</button>
+  </div>
+  <div id="plotContainer" style="width:100%;text-align:center;color:#666;">
+    <em>Select a transect above, then choose Plot or Graph.</em>
+  </div>
+  <script>
+    const urls = {
+      "Logan Transect": {
+        plot:  "https://uofu.maps.arcgis.com/sharing/rest/content/items/e2e2fa4b2ed84182a8dad2d3d77097a3/data",
+        graph: "https://uofu.maps.arcgis.com/sharing/rest/content/items/5036ead16a224cc68c762c5c25476a38/data"
+      },
+      "Hyrum Transect": {
+        plot:  "https://uofu.maps.arcgis.com/sharing/rest/content/items/77d3a3b837714c5e9e0bcfb5e11c8b9f/data",
+        graph: "https://uofu.maps.arcgis.com/sharing/rest/content/items/9987285a68f1475fbd25bbcbd2784cb0/data"
+      }
+    };
+    let currentTransect = null;
+    document.getElementById('btnLogan').onclick = () => {
+      currentTransect = "Logan Transect";
+      plotContainer.innerHTML = '<em>Logan selected. Now click Plot or Graph.</em>';
+    };
+    document.getElementById('btnHyrum').onclick = () => {
+      currentTransect = "Hyrum Transect";
+      plotContainer.innerHTML = '<em>Hyrum selected. Now click Plot or Graph.</em>';
+    };
+    document.getElementById('btnPlot').onclick = () => {
+      if (!currentTransect) return alert("Select a transect first.");
+      showImage(urls[currentTransect].plot);
+    };
+    document.getElementById('btnGraph').onclick = () => {
+      if (!currentTransect) return alert("Select a transect first.");
+      showImage(urls[currentTransect].graph);
+    };
+    function showImage(url) {
+      plotContainer.innerHTML =
+        '<img src="'+url+'" style="max-width:100%;height:auto;border:1px solid #ccc;"/>';
+    }
+  </script>
+</body>
+</html>
